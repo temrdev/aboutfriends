@@ -1,17 +1,19 @@
-const container = document.getElementById('cards-container');
+// script.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Проверяем, на какой мы странице
+  if (window.location.pathname.includes("friend.html")) {
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+    const friend = friends.find(f => f.id === id);
 
-niggas.forEach((nigga) => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-    <img src="${boy.photo}" alt="${boy.name}" 
-    <h2>${boy.name} (${boy.nickname})<h2>
-    <p>${boy.bio}</p>
-    <h4>Skills: </h4>
-    <ul>
-        ${boy.skills.map(skill => `<li>${skill} </li>`).join('')}
-        </ul>`
-
-    container.appendChild(card);
-})
+    if (friend) {
+      document.getElementById("friend-name").textContent = friend.name;
+      document.getElementById("friend-nickname").textContent = friend.nickname;
+      const img = document.getElementById("friend-image");
+      img.src = friend.image;
+      img.alt = friend.name;
+    } else {
+      document.body.innerHTML = "<h2 style='text-align:center;'>Friend not found 😥</h2>";
+    }
+  }
+});
